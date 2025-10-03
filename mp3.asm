@@ -254,7 +254,7 @@ displayInfo:
     call displayString
 
     ;Classification
-    mov edx, Classification
+    mov edx, clafText
     call displayString
 
     ret
