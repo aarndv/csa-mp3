@@ -361,3 +361,5 @@ clearScreen:
 	mov edx, clsLen
 	int 0x80
 	ret
+	
+	; test comment
