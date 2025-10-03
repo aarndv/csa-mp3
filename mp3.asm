@@ -395,6 +395,8 @@ displayTuition:
     mov edx, tfFeeTableLineH
     call lineRowRoutine
 
+    ret
+
 lineRowRoutine:
     call displayString
     mov eax, 4
