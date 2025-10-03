@@ -126,12 +126,12 @@ section .data
     yrlvAnsLen dd 0
 
     ; Lengths of 9
-    mvCrsToRight1 db 27, '[01;085H', 0 
-    mvCrsToRight2 db 27, '[02;085H', 0 
-    mvCrsToRight3 db 27, '[03;085H', 0 
-    mvCrsToRightZ db 27, '[04;023H', 0 
-    mvCrsToRight4 db 27, '[04;085H', 0 
-    newline db 0xA, 0xD
+    mvCrsToRight1 db 27, '[01;085H' 
+    mvCrsToRight2 db 27, '[02;085H' 
+    mvCrsToRight3 db 27, '[03;085H' 
+    mvCrsToRightZ db 27, '[04;040H' 
+    mvCrsToRight4 db 27, '[04;085H' 
+    newline db 0xA
 
 section .bss
     enrl resb 256
@@ -304,7 +304,7 @@ jumpRow:
     mov ebx, 1
     mov edx, 9
     int 0x80
-
+	ret
 ;displayTable:
 
 tableRowRoutine:
@@ -331,7 +331,7 @@ newlineDisplay:
     mov eax, 4
     mov ebx, 1
     mov ecx, newline
-    mov edx, 2
+    mov edx, 1
     int 0x80
 
 exit:
