@@ -39,7 +39,7 @@ section .data
     colgPrompt db "Enter College: ", 0, 10
     progPrompt db "Enter College Program: ", 0, 10
     adrsPrompt db "Enter Address: ", 0, 10
-    yrlvPrompt db "Enter Year LeveL: ", 0, 10
+    yrlvPrompt db "Enter Year Level: ", 0, 10
     
     enrlPromptLen equ $ - enrlPrompt
     stdnPromptLen equ $ - stdnPrompt
@@ -153,47 +153,47 @@ _start:
 promptInfo:
     mov edx, enrlPrompt 
     call displayString
-    mov edx, enrl 
+    mov eax, enrl 
     call inputString
 
-    mov eax, stdn
-    call displayString
     mov edx, stdnPrompt
+    call displayString
+    mov eax, stdn
     call inputString
 
-    mov eax, name
-    call displayString
     mov edx, namePrompt
+    call displayString
+    mov eax, name
     call inputString
 
-    mov eax, phone
-    call displayString
     mov edx, phonePrompt
+    call displayString
+    mov eax, phone
     call inputString
 
-    mov eax, zip 
+    mov edx, zipPrompt 
     call displayString
-    mov edx, zipPrompt
+    mov eax, zip
     call inputString
 
-    mov eax, colg 
+    mov edx, colgPrompt 
     call displayString
-    mov edx, colgPrompt
+    mov eax, colg
     call inputString
     
-    mov eax, prog 
+    mov edx, progPrompt 
     call displayString
-    mov edx, progPrompt
+    mov eax, prog
     call inputString
     
-    mov eax, adrs 
-    call displayString
     mov edx, adrsPrompt
+    call displayString
+    mov eax, adrs
     call inputString
     
-    mov eax, yrlv 
+    mov edx, yrlvPrompt 
     call displayString
-    mov edx, yrlvPrompt
+    mov eax, yrlv
     call inputString
 
     ret
