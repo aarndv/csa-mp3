@@ -54,7 +54,7 @@ section .data
     enrlText db "Enrollment Status: ", 0, 10
     stdnText db "Student #: ", 0, 10
     nameText db "Name: ", 0, 10
-    phoneText db "Phone: ", 0, 10
+    phoneText db "Phone: +", 0, 10
     zipText db "Zip Code: ", 0, 10
     colgText db "College: ", 0, 10
     progText db "Program: ", 0, 10
@@ -112,7 +112,7 @@ section .data
     clafText db "Classification:", 0, 10
     clafTextLen equ $ - clafText
 
-    cls db 27, '[2J', 27, '[H'     ;Length of 4
+    cls db 27, '[2J', 27, '[H'
     clsLen equ $ - cls
 
     enrlAnsLen dd 0
@@ -129,6 +129,7 @@ section .data
     mvCrsToRight1 db 27, '[01;085H', 0 
     mvCrsToRight2 db 27, '[02;085H', 0 
     mvCrsToRight3 db 27, '[03;085H', 0 
+    mvCrsToRightZ db 27, '[04;023H', 0 
     mvCrsToRight4 db 27, '[04;085H', 0 
     newline db 0xA, 0xD
 
@@ -259,17 +260,25 @@ displayInfo:
     mov edx, phone
     call displayString
 
+    mov ecx, mvCrsToRightZ
+    call jumpRow
+
     ;Zip *
     mov edx, zipText
     call displayString
     mov edx, zip
     call displayString
 
+    mov ecx, mvCrsToRight4
+    call jumpRow
+
     ;Year Level
     mov edx, yrlvText
     call displayString
     mov edx, yrlv
     call displayString
+
+    call newlineDisplay
 
     ;Classification
     mov edx, clafText
