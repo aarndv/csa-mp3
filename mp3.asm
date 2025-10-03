@@ -331,6 +331,8 @@ displayTable:
     mov edx, tableLineH
     call lineRowRoutine
 
+    ret
+
 displayTuition:
     mov edx, tfFeeTableLineH
     call lineRowRoutine
@@ -399,23 +401,11 @@ displayTuition:
 
 lineRowRoutine:
     call displayString
-
-    push eax
-    push ebx
-    push ecx
-    push edx
-
     mov eax, 4
     mov ebx, 1
     mov ecx, nextRow
     mov edx, nextRowLen
     int 0x80
-
-    pop eax
-    pop ebx
-    pop ecx
-    pop edx
-
     ret
 
 jumpRow:
