@@ -154,8 +154,8 @@ _start:
     call promptInfo
     call clearScreen
     call displayInfo
-    ;call displayTable
-    ;call displayTuition
+    call displayTable
+    call displayTuition
     call exit
 
 promptInfo:
@@ -293,19 +293,100 @@ displayInfo:
     call displayString
 
     ret
+displayTable:
+    mov edx, tableLineH
+    call displayString
 
-displayRoutine:
-    mov esi, eax
-    mov edi, ebx
-    call sysout
-    int 0x80
+    mov edx, tableLabels
+    call displayString
 
-    mov ecx, esi
-    mov edx, edi
-    call sysout
-    int 0x80
+    mov edx, tableLineH
+    call displayString
 
-    ret
+    mov edx, tableRow1
+    call displayString
+
+    mov edx, tableRow2
+    call displayString
+
+    mov edx, tableRow3
+    call displayString
+
+    mov edx, tableRow4
+    call displayString
+
+    mov edx, tableRow5
+    call displayString
+
+    mov edx, tableRow6
+    call displayString
+
+    mov edx, tableLineH
+    call displayString
+
+displayTuition:
+    mov edx, tfFeeTableLineH
+    call displayString
+
+    mov edx, tfFeeTableR1
+    call displayString
+
+    mov edx, tfFeeTableR2
+    call displayString
+
+    mov edx, tfFeeTableR3
+    call displayString
+
+    mov edx, tfFeeTableR4
+    call displayString
+    
+    mov edx, tfFeeTableR5
+    call displayString
+
+    mov edx, tfFeeTableR6
+    call displayString
+
+    mov edx, tfFeeTableR7
+    call displayString
+
+    mov edx, tfFeeTableR8
+    call displayString
+
+    mov edx, tfFeeTableBR
+    call displayString
+
+    mov edx, tfFeeTableR9
+    call displayString
+
+    mov edx, tfFeeTableR10
+    call displayString
+
+    mov edx, tfFeeTableBR
+    call displayString
+
+    mov edx, tfFeeTableR11
+    call displayString
+
+    mov edx, tfFeeTableBR
+    call displayString
+
+    mov edx, tfFeeTableBR
+    call displayString
+
+    mov edx, tfFeeTableBR
+    call displayString
+
+    mov edx, tfFeeTableR12
+    call displayString
+
+    mov edx, tfFeeTableR13
+    call displayString
+
+    mov edx, tfFeeTableR14
+    call displayString
+    
+    mov edx, tfFeeTableLineH
+    call displayString
 
 jumpRow:
     mov eax, 4
@@ -313,15 +394,7 @@ jumpRow:
     mov edx, 9
     int 0x80
 	ret
-;displayTable:
 
-tableRowRoutine:
-    ;display a bar
-    ;display the text
-    ;go to the next col (using esc chars)
-
-
-;displayTuition:
 
 ;Helpers
 
