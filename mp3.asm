@@ -153,7 +153,7 @@ _start:
 promptInfo:
     mov edx, enrlPrompt 
     call displayString
-    mov eax, enrl 
+    mov edx, enrl 
     call inputString
 
     mov eax, stdn
