@@ -147,6 +147,7 @@ section .text
 _start:
     call promptInfo
     call displayInfo
+    call clearScreen
     ;call displayTable
     ;call displayTuition
     call exit
@@ -351,3 +352,10 @@ inputString:
 
     mov byte [ecx + eax - 1], 0
     ret
+    
+clearScreen:
+	mov eax, 4
+	mov ebx, 1
+	mov ecx, cls
+	mov edx, 4
+	int 0x80
