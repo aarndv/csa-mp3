@@ -112,7 +112,8 @@ section .data
     clafText db "Classification:", 0, 10
     clafTextLen equ $ - clafText
 
-    cls db 27, '[2J', 0     ;Length of 4
+    cls db 27, '[2J', 27, '[H'     ;Length of 4
+    clsLen equ $ - cls
 
     enrlAnsLen dd 0
     stdnAnsLen dd 0
@@ -146,8 +147,8 @@ section .text
     global _start
 _start:
     call promptInfo
-    call displayInfo
     call clearScreen
+    call displayInfo
     ;call displayTable
     ;call displayTuition
     call exit
@@ -357,5 +358,6 @@ clearScreen:
 	mov eax, 4
 	mov ebx, 1
 	mov ecx, cls
-	mov edx, 4
+	mov edx, clsLen
 	int 0x80
+	ret
