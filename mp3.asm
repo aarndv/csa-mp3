@@ -129,6 +129,7 @@ section .data
     mvCrsToRight2 db 27, '[02;085H', 0 
     mvCrsToRight3 db 27, '[03;085H', 0 
     mvCrsToRight4 db 27, '[04;085H', 0 
+    newline db 0xA, 0xD
 
 section .bss
     enrl resb 256
@@ -205,11 +206,16 @@ displayInfo:
     mov edx, enrl 
     call displayString
 
+    mov ecx, mvCrsToRight1 
+    call jumpRow
+
     ;College
     mov edx, colgText
     call displayString
     mov edx, colg
     call displayString
+
+    call newline
 
     ;Student 
     mov edx, stdnText
@@ -217,23 +223,33 @@ displayInfo:
     mov edx, stdn
     call displayString
 
+    mov ecx, mvCrsToRight2
+    call jumpRow
+
     ;Program
     mov edx, progText
     call displayString
     mov edx, prog
     call displayString
+    
+    call newline
 
     ;Name
     mov edx, nameText
     call displayString
     mov edx, name
     call displayString
+
+    mov ecx, mvCrsToRight3
+    call jumpRow
     
     ;Address
     mov edx, adrsText
     call displayString
     mov edx, adrs
     call displayString
+
+    call newline
 
     ;Phone
     mov edx, phoneText
@@ -300,6 +316,12 @@ sysout:
     mov ebx, 1
     ret
     
+newline:
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, newline
+    mov edx, 2
+    int 0x80
 
 exit:
     mov eax, 1
