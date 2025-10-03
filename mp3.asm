@@ -1,12 +1,27 @@
 section .data
-    tableLineH db '+', times 10 db '-', db '+', times 39 db '-', db '+', times 7 db '-', db '+', times 5 db '-', db '+', times 4 db '-', db '+', times 39 db '-', db '+', times 18 db '-', db '+', 0
+    tableLineH:
+    	db '+'
+    	times 10 db '-'
+    	db '+'
+    	times 39 db '-'
+    	db '+'
+    	times 7 db '-'
+    	db '+'
+    	times 5 db '-'
+    	db '+'
+    	times 4 db '-'
+    	db '+'
+    	times 39 db '-'
+    	db '+'
+    	times 18 db '-'
+    	db '+', 0
     tableLineHLen equ $ - tableLineH
     tableLabels db "|Courses   |Title                                  |Section|Units|Days|Time                                   |Room              |", 0, 10
     tableLabelsLen equ $ - tableLabels
     tableRow1 db   "|GED0075   |LINEAR ALGEBRA                         |TN24   |3    |F/T |13:00:00-14:50:00/13:00:00-14:50:00    |ONLINE/ONLINE     |", 0, 10 
     tableRow1Len equ $ - tableRow1
     tableRow2 db   "|GED0081   |COLLEGE PHYSICS 1 LECTURE              |TN24   |2    |T   |07:00:00-09:40:00                      |ONLINE            |", 0, 10
-    tableRow2Len equ $ - tablaRow2
+    tableRow2Len equ $ - tableRow2
     tableRow3 db   "|CS0001    |DISCRETE STRUCTURES 1                  |TN24   |3    |S/W |15:00:00-16:50:00/15:00:00-16:50:00    |F711/F711         |", 0, 10
     tableRow3Len equ $ - tableRow3
     tableRow4 db   "|CS0003    |COMPUTER SYSTEMS & ARCHITECTURE        |TN24   |2    |F   |10:00:00-12:40:00                      |ONLINE            |", 0, 10
@@ -56,7 +71,10 @@ section .data
     adrsTextLen equ $ - adrsText
     yrlvTextLen equ $ - yrlvText
 
-    tfFeeTableLineH db '+', times 80 db '-', db '+'
+    tfFeeTableLineH:
+    	db '+'
+    	times 80 db '-'
+    	db '+'
     tfFeeTableLineHLen equ $ - tfFeeTableLineH
 
     tfFeeTableBR  db "|                                                                                |", 0, 10
@@ -190,7 +208,7 @@ displayInfo:
     ;College
     mov edx, colgText
     call displayString
-    move edx, colg
+    mov edx, colg
     call displayString
 
     ;Student 
