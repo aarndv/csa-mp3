@@ -397,12 +397,9 @@ displayTuition:
 
 lineRowRoutine:
     call displayString
-    call newlineDisplay
-    ret
-
-jumpRowNext:
     mov eax, 4
     mov ebx, 1
+    mov ecx, nextRow
     mov edx, nextRowLen
     int 0x80
     ret
@@ -425,11 +422,6 @@ sysout:
     mov ebx, 1
     ret
     
-newlineDisplay:
-    mov ecx, nextRow
-    call jumpRowNext
-    ret
-
 displayString:
     mov ecx, edx
     mov edx, 0
