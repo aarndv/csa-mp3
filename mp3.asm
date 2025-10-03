@@ -135,8 +135,9 @@ section .data
     mvCrsToRightZ db 27, '[04;030H' 
     mvCrsToRight4 db 27, '[04;085H' 
     mvCrsToNewln4 db 27, '[05;001H'
+    mvCrsToNewln5 db 27, '[06;001H'
     nextRow db 27, '[E' 
-    nextRowLine equ $ - nextRow
+    nextRowLen equ $ - nextRow
     newline db 0xA
 
 section .bss
@@ -294,7 +295,11 @@ displayInfo:
     mov edx, clafText
     call displayString
 
+    mov ecx, mvCrsToNewln5
+    call jumpRow
+
     ret
+
 displayTable:
     mov edx, tableLineH
     call lineRowRoutine
@@ -395,6 +400,13 @@ lineRowRoutine:
     call newlineDisplay
     ret
 
+jumpRowNext:
+    mov eax, 4
+    mov ebx, 1
+    mov edx, nextRowLen
+    int 0x80
+    ret
+
 jumpRow:
     mov eax, 4
     mov ebx, 1
@@ -415,7 +427,7 @@ sysout:
     
 newlineDisplay:
     mov ecx, nextRow
-    call jumpRow
+    call jumpRowNext
     ret
 
 displayString:
