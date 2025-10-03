@@ -134,7 +134,8 @@ section .data
     mvCrsToNewln3 db 27, '[04;001H'
     mvCrsToRightZ db 27, '[04;030H' 
     mvCrsToRight4 db 27, '[04;085H' 
-    mvCrsToNewln4 db 27, '[05;001H'
+    nextRow db 27, '[E' 
+    nextRowLine equ $ - nextRow
     newline db 0xA
 
 section .bss
@@ -295,98 +296,103 @@ displayInfo:
     ret
 displayTable:
     mov edx, tableLineH
-    call displayString
+    call lineRowRoutine
 
     mov edx, tableLabels
-    call displayString
+    call lineRowRoutine
 
     mov edx, tableLineH
-    call displayString
+    call lineRowRoutine
 
     mov edx, tableRow1
-    call displayString
+    call lineRowRoutine
 
     mov edx, tableRow2
-    call displayString
+    call lineRowRoutine
 
     mov edx, tableRow3
-    call displayString
+    call lineRowRoutine
 
     mov edx, tableRow4
-    call displayString
+    call lineRowRoutine
 
     mov edx, tableRow5
-    call displayString
+    call lineRowRoutine
 
     mov edx, tableRow6
-    call displayString
+    call lineRowRoutine
 
     mov edx, tableLineH
-    call displayString
+    call lineRowRoutine
 
 displayTuition:
     mov edx, tfFeeTableLineH
-    call displayString
+    call lineRowRoutine
 
     mov edx, tfFeeTableR1
-    call displayString
+    call lineRowRoutine
 
     mov edx, tfFeeTableR2
-    call displayString
+    call lineRowRoutine
 
     mov edx, tfFeeTableR3
-    call displayString
+    call lineRowRoutine
 
     mov edx, tfFeeTableR4
-    call displayString
+    call lineRowRoutine
     
     mov edx, tfFeeTableR5
-    call displayString
+    call lineRowRoutine
 
     mov edx, tfFeeTableR6
-    call displayString
+    call lineRowRoutine
 
     mov edx, tfFeeTableR7
-    call displayString
+    call lineRowRoutine
 
     mov edx, tfFeeTableR8
-    call displayString
+    call lineRowRoutine
 
     mov edx, tfFeeTableBR
-    call displayString
+    call lineRowRoutine
 
     mov edx, tfFeeTableR9
-    call displayString
+    call lineRowRoutine
 
     mov edx, tfFeeTableR10
-    call displayString
+    call lineRowRoutine
 
     mov edx, tfFeeTableBR
-    call displayString
+    call lineRowRoutine
 
     mov edx, tfFeeTableR11
-    call displayString
+    call lineRowRoutine
 
     mov edx, tfFeeTableBR
-    call displayString
+    call lineRowRoutine
 
     mov edx, tfFeeTableBR
-    call displayString
+    call lineRowRoutine
 
     mov edx, tfFeeTableBR
-    call displayString
+    call lineRowRoutine
 
     mov edx, tfFeeTableR12
-    call displayString
+    call lineRowRoutine
 
     mov edx, tfFeeTableR13
-    call displayString
+    call lineRowRoutine
 
     mov edx, tfFeeTableR14
-    call displayString
+    call lineRowRoutine
     
     mov edx, tfFeeTableLineH
+    call lineRowRoutine
+
+lineRowRoutine:
     call displayString
+    call newlineDisplay
+    ret
 
 jumpRow:
     mov eax, 4
@@ -395,9 +401,7 @@ jumpRow:
     int 0x80
 	ret
 
-
 ;Helpers
-
 sysin:
     mov eax, 3
     mov ebx, 0
@@ -409,16 +413,9 @@ sysout:
     ret
     
 newlineDisplay:
-    mov eax, 4
-    mov ebx, 1
-    mov ecx, newline
-    mov edx, 1
-    int 0x80
-
-exit:
-    mov eax, 1
-    xor ebx, ebx   
-    int 0x80
+    mov ecx, nextRow
+    call jumpRow
+    ret
 
 displayString:
     mov ecx, edx
@@ -451,5 +448,8 @@ clearScreen:
 	mov edx, clsLen
 	int 0x80
 	ret
-	
-	; test comment
+
+exit:
+    mov eax, 1
+    xor ebx, ebx   
+    int 0x80
