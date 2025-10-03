@@ -15,21 +15,13 @@ section .data
     	db '+'
     	times 18 db '-'
     	db '+', 0
-    tableLineHLen equ $ - tableLineH
     tableLabels db "|Courses   |Title                                  |Section|Units|Days|Time                                   |Room              |", 0, 10
-    tableLabelsLen equ $ - tableLabels
     tableRow1 db   "|GED0075   |LINEAR ALGEBRA                         |TN24   |3    |F/T |13:00:00-14:50:00/13:00:00-14:50:00    |ONLINE/ONLINE     |", 0, 10 
-    tableRow1Len equ $ - tableRow1
     tableRow2 db   "|GED0081   |COLLEGE PHYSICS 1 LECTURE              |TN24   |2    |T   |07:00:00-09:40:00                      |ONLINE            |", 0, 10
-    tableRow2Len equ $ - tableRow2
     tableRow3 db   "|CS0001    |DISCRETE STRUCTURES 1                  |TN24   |3    |S/W |15:00:00-16:50:00/15:00:00-16:50:00    |F711/F711         |", 0, 10
-    tableRow3Len equ $ - tableRow3
     tableRow4 db   "|CS0003    |COMPUTER SYSTEMS & ARCHITECTURE        |TN24   |2    |F   |10:00:00-12:40:00                      |ONLINE            |", 0, 10
-    tableRow4Len equ $ - tableRow4
     tableRow5 db   "|GED0021   |SPECIALIZED ENGLISH PROGRAM 2          |TN24   |3    |S/W |13:00:00-14:50:00/13:00:00-14:50:00    |F608/F608         |", 0, 10
-    tableRow5Len equ $ - tableRow5
     tableRow6 db   "|CCS0021   |INFORMATION MANAGEMENT (LEC)           |TN24   |2    |T   |16:00:00-18:40:00                      |ONLINE            |", 0, 10
-    tableRow6Len equ $ - tableRow6
 
     enrlPrompt db "Enter Enrollment Status: ", 0, 10
     stdnPrompt db "Enter Student #: ", 0, 10
@@ -40,16 +32,6 @@ section .data
     progPrompt db "Enter College Program: ", 0, 10
     adrsPrompt db "Enter Address: ", 0, 10
     yrlvPrompt db "Enter Year Level: ", 0, 10
-    
-    enrlPromptLen equ $ - enrlPrompt
-    stdnPromptLen equ $ - stdnPrompt
-    namePromptLen equ $ - namePrompt
-    phonePromptLen equ $ - phonePrompt
-    zipPromptLen equ $ - zipPrompt
-    colgPromptLen equ $ - colgPrompt
-    progPromptLen equ $ - progPrompt
-    adrsPromptLen equ $ - adrsPrompt
-    yrlvPromptLen equ $ - yrlvPrompt
 
     enrlText db "Enrollment Status: ", 0, 10
     stdnText db "Student #: ", 0, 10
@@ -61,16 +43,6 @@ section .data
     adrsText db "Address: ", 0, 10
     yrlvText db "Year Level: ", 0, 10
     
-    enrlTextLen equ $ - enrlText 
-    stdnTextLen equ $ - stdnText
-    nameTextLen equ $ - nameText
-    phoneTextLen equ $ - phoneText
-    zipTextLen equ $ - zipText
-    colgTextLen equ $ - colgText
-    progTextLen equ $ - progText
-    adrsTextLen equ $ - adrsText
-    yrlvTextLen equ $ - yrlvText
-
     tfFeeTableLineH:
     	db '+'
     	times 80 db '-'
@@ -92,22 +64,6 @@ section .data
     tfFeeTableR12 db "|Down Payment (Upon Enrollment) 40%                          6,958.50            |", 0, 10    
     tfFeeTableR13 db "|Midterm (Oct 06 - Oct 08 2025) 30%                          5,218.88            |", 0, 10
     tfFeeTableR14 db "|Final (Nov 21 - Nov 27 2025) 30%                            5,218.88            |", 0, 10    
-    
-    tfFeeTableBRLen equ $ - tfFeeTableBR
-    tfFeeTableR1Len equ $ - tfFeeTableR1 
-    tfFeeTableR2Len equ $ - tfFeeTableR2
-    tfFeeTableR3Len equ $ - tfFeeTableR3
-    tfFeeTableR4Len equ $ - tfFeeTableR4
-    tfFeeTableR5Len equ $ - tfFeeTableR5
-    tfFeeTableR6Len equ $ - tfFeeTableR6
-    tfFeeTableR7Len equ $ - tfFeeTableR7
-    tfFeeTableR8Len equ $ - tfFeeTableR8
-    tfFeeTableR9Len equ $ - tfFeeTableR9
-    tfFeeTableR10Len equ $ - tfFeeTableR10
-    tfFeeTableR11Len equ $ - tfFeeTableR11
-    tfFeeTableR12Len equ $ - tfFeeTableR12
-    tfFeeTableR13Len equ $ - tfFeeTableR13
-    tfFeeTableR14Len equ $ - tfFeeTableR14
 
     clafText db "Classification:", 0, 10
     clafTextLen equ $ - clafText
@@ -115,17 +71,6 @@ section .data
     cls db 27, '[2J', 27, '[H'
     clsLen equ $ - cls
 
-    enrlAnsLen dd 0
-    stdnAnsLen dd 0
-    nameAnsLen dd 0
-    phoneAnsLen dd 0
-    zipAnsLen dd 0
-    colgAnsLen dd 0
-    progAnsLen dd 0
-    adrsAnsLen dd 0
-    yrlvAnsLen dd 0
-
-    ; Lengths of 9
     mvCrsToRight1 db 27, '[01;085H' 
     mvCrsToNewln1 db 27, '[02;001H'
     mvCrsToRight2 db 27, '[02;085H' 
@@ -153,6 +98,7 @@ section .bss
 
 section .text
     global _start
+    
 _start:
     call promptInfo
     call clearScreen
@@ -206,98 +152,77 @@ promptInfo:
     call displayString
     mov eax, yrlv
     call inputString
-
     ret
 
 displayInfo:
-    ;Enrollment Status
     mov edx, enrlText
     call displayString
     mov edx, enrl 
     call displayString
-
     mov ecx, mvCrsToRight1 
     call jumpRow
 
-    ;College
     mov edx, colgText
     call displayString
     mov edx, colg
     call displayString
-
     mov ecx, mvCrsToNewln1
     call jumpRow
 
-    ;Student 
     mov edx, stdnText
     call displayString
     mov edx, stdn
     call displayString
-
     mov ecx, mvCrsToRight2
     call jumpRow
 
-    ;Program
     mov edx, progText
     call displayString
     mov edx, prog
     call displayString
-    
     mov ecx, mvCrsToNewln2
     call jumpRow
 
-    ;Name
     mov edx, nameText
     call displayString
     mov edx, name
     call displayString
-
     mov ecx, mvCrsToRight3
     call jumpRow
     
-    ;Address
     mov edx, adrsText
     call displayString
     mov edx, adrs
     call displayString
-
     mov ecx, mvCrsToNewln3
     call jumpRow
 
-    ;Phone
     mov edx, phoneText
     call displayString
     mov edx, phone
     call displayString
-
     mov ecx, mvCrsToRightZ
     call jumpRow
 
-    ;Zip *
     mov edx, zipText
     call displayString
     mov edx, zip
     call displayString
-
     mov ecx, mvCrsToRight4
     call jumpRow
 
-    ;Year Level
     mov edx, yrlvText
     call displayString
     mov edx, yrlv
     call displayString
-
     mov ecx, mvCrsToNewln4
     call jumpRow
 
     ;Classification
     mov edx, clafText
     call displayString
-
     mov ecx, mvCrsToNewln5
     call jumpRow
-
     ret
 
 displayTable:
@@ -330,7 +255,6 @@ displayTable:
 
     mov edx, tableLineH
     call lineRowRoutine
-
     ret
 
 displayTuition:
@@ -396,7 +320,6 @@ displayTuition:
     
     mov edx, tfFeeTableLineH
     call lineRowRoutine
-
     ret
 
 lineRowRoutine:
@@ -415,17 +338,6 @@ jumpRow:
     int 0x80
 	ret
 
-;Helpers
-sysin:
-    mov eax, 3
-    mov ebx, 0
-    ret
-
-sysout:
-    mov eax, 4
-    mov ebx, 1
-    ret
-    
 displayString:
     mov ecx, edx
     mov edx, 0
