@@ -74,7 +74,7 @@ section .data
     tfFeeTableLineH:
     	db '+'
     	times 80 db '-'
-    	db '+'
+    	db '+', 0
     tfFeeTableLineHLen equ $ - tfFeeTableLineH
 
     tfFeeTableBR  db "|                                                                                |", 0, 10
