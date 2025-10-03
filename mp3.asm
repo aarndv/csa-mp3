@@ -215,7 +215,7 @@ displayInfo:
     mov edx, colg
     call displayString
 
-    call newline
+    call newlineDisplay
 
     ;Student 
     mov edx, stdnText
@@ -232,7 +232,7 @@ displayInfo:
     mov edx, prog
     call displayString
     
-    call newline
+    call newlineDisplay
 
     ;Name
     mov edx, nameText
@@ -249,7 +249,7 @@ displayInfo:
     mov edx, adrs
     call displayString
 
-    call newline
+    call newlineDisplay
 
     ;Phone
     mov edx, phoneText
@@ -316,7 +316,7 @@ sysout:
     mov ebx, 1
     ret
     
-newline:
+newlineDisplay:
     mov eax, 4
     mov ebx, 1
     mov ecx, newline
