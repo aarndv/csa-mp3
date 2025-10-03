@@ -132,7 +132,7 @@ section .data
     mvCrsToNewln2 db 27, '[03;001H'
     mvCrsToRight3 db 27, '[03;085H' 
     mvCrsToNewln3 db 27, '[04;001H'
-    mvCrsToRightZ db 27, '[04;040H' 
+    mvCrsToRightZ db 27, '[04;030H' 
     mvCrsToRight4 db 27, '[04;085H' 
     mvCrsToNewln4 db 27, '[05;001H'
     newline db 0xA
