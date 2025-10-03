@@ -134,6 +134,7 @@ section .data
     mvCrsToNewln3 db 27, '[04;001H'
     mvCrsToRightZ db 27, '[04;030H' 
     mvCrsToRight4 db 27, '[04;085H' 
+    mvCrsToNewln4 db 27, '[05;001H'
     nextRow db 27, '[E' 
     nextRowLine equ $ - nextRow
     newline db 0xA
