@@ -127,10 +127,14 @@ section .data
 
     ; Lengths of 9
     mvCrsToRight1 db 27, '[01;085H' 
+    mvCrsToNewln1 db 27, '[02;001H'
     mvCrsToRight2 db 27, '[02;085H' 
+    mvCrsToNewln2 db 27, '[03;001H'
     mvCrsToRight3 db 27, '[03;085H' 
+    mvCrsToNewln3 db 27, '[04;001H'
     mvCrsToRightZ db 27, '[04;040H' 
     mvCrsToRight4 db 27, '[04;085H' 
+    mvCrsToNewln4 db 27, '[05;001H'
     newline db 0xA
 
 section .bss
@@ -218,7 +222,8 @@ displayInfo:
     mov edx, colg
     call displayString
 
-    call newlineDisplay
+    mov ecx, mvCrsToNewln1
+    call jumpRow
 
     ;Student 
     mov edx, stdnText
@@ -235,7 +240,8 @@ displayInfo:
     mov edx, prog
     call displayString
     
-    call newlineDisplay
+    mov ecx, mvCrsToNewln2
+    call jumpRow
 
     ;Name
     mov edx, nameText
@@ -252,7 +258,8 @@ displayInfo:
     mov edx, adrs
     call displayString
 
-    call newlineDisplay
+    mov ecx, mvCrsToNewln3
+    call jumpRow
 
     ;Phone
     mov edx, phoneText
@@ -278,7 +285,8 @@ displayInfo:
     mov edx, yrlv
     call displayString
 
-    call newlineDisplay
+    mov ecx, mvCrsToNewln4
+    call jumpRow
 
     ;Classification
     mov edx, clafText
